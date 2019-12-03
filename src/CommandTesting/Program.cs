@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Qmmands;
 
 namespace CommandTesting {
+	// This program isn't the target of the code review but just a demonstration of a custom command map with different features from the standard implementation..
 	public class Program {
 		private static void Main(string[] args) {
 			try {

@@ -3,10 +3,13 @@ using Qmmands;
 
 namespace CommandTesting {
 	internal class MultiWordCommandMap : ICommandMap {
-		private List<Command> m_Commands;
+		private readonly string m_Separator;
+		private readonly List<Command> m_Commands;
 
-		public MultiWordCommandMap() {
+		// I've not actually tested this with any separator other than a space but it should totally work.
+		public MultiWordCommandMap(string separator = " ") {
 			m_Commands = new List<Command>();
+			m_Separator = separator;
 		}
 
 		public IReadOnlyList<CommandMatch> FindCommands(string input) {
@@ -21,7 +24,6 @@ namespace CommandTesting {
 				while (checkModules.Peek().Parent != null) {
 					checkModules.Push(checkModules.Peek().Parent);
 				}
-				char separatorChar = ' '; // TODO take custom separator
 				bool match = false;
 				while (checkModules.TryPop(out Module check)) {
 					foreach (string alias in check.Aliases) {
@@ -34,7 +36,7 @@ namespace CommandTesting {
 					}
 
 					if (match) {
-						string trimmedRemainingInput = remainingInput.TrimStart(separatorChar);
+						string trimmedRemainingInput = remainingInput.TrimStart(m_Separator);
 						if (trimmedRemainingInput != remainingInput) {
 							remainingInput = trimmedRemainingInput;
 						} else {
@@ -47,8 +49,8 @@ namespace CommandTesting {
 					foreach (string alias in command.Aliases) {
 						if (remainingInput.StartsWith(alias)) {
 							remainingInput = remainingInput.Substring(alias.Length);
-							if (remainingInput.Length == 0 || remainingInput.StartsWith(separatorChar)) {
-								matches.Add(new CommandMatch(command, alias, path.AsReadOnly(), remainingInput.TrimStart(separatorChar)));
+							if (remainingInput.Length == 0 || remainingInput.StartsWith(m_Separator)) {
+								matches.Add(new CommandMatch(command, alias, path.AsReadOnly(), remainingInput.TrimStart(m_Separator)));
 								break;
 							}
 						}
