@@ -240,18 +240,6 @@ namespace Qmmands
             if (CustomArgumentParserType != null && !Utilities.IsValidArgumentParserDefinition(CustomArgumentParserType))
                 throw new CommandBuildingException(this, $"{CustomArgumentParserType} is not a valid argument parser type.");
 
-            foreach (var alias in Aliases)
-            {
-                if (alias == null)
-                    throw new CommandBuildingException(this, "Command's aliases must not contain null entries.");
-
-                if (alias.IndexOf(' ') != -1)
-                    throw new CommandBuildingException(this, "Command's aliases must not contain whitespace.");
-
-                if (alias.IndexOf(module.Service.Separator, module.Service.StringComparison) != -1)
-                    throw new CommandBuildingException(this, "Command's aliases must not contain the separator.");
-            }
-
             ParameterBuilder previous = null;
             for (var i = 0; i < Parameters.Count; i++)
             {

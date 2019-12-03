@@ -282,18 +282,6 @@ namespace Qmmands
             if (CustomArgumentParserType != null && !Utilities.IsValidArgumentParserDefinition(CustomArgumentParserType))
                 throw new ModuleBuildingException(this, $"{CustomArgumentParserType} is not a valid argument parser type.");
 
-            foreach (var alias in Aliases)
-            {
-                if (alias == null)
-                    throw new ModuleBuildingException(this, "Module's group aliases must not contain null entries.");
-
-                if (alias.IndexOf(' ') != -1)
-                    throw new ModuleBuildingException(this, "Module's group aliases must not contain whitespace.");
-
-                if (alias.IndexOf(service.Separator, service.StringComparison) != -1)
-                    throw new ModuleBuildingException(this, "Module's group aliases must not contain the separator.");
-            }
-
             return new Module(service, this, parent);
         }
     }
