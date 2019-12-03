@@ -62,10 +62,16 @@ namespace CommandTesting {
 
 		public void MapModule(Module module) {
 			m_Commands.AddRange(module.Commands);
+			foreach (Module sub in module.Submodules) {
+				MapModule(sub);
+			}
 		}
 
 		public void UnmapModule(Module module) {
 			m_Commands.RemoveAll(command => command.Module == module);
+			foreach (Module sub in module.Submodules) {
+				UnmapModule(sub);
+			}
 		}
 	}
 }
