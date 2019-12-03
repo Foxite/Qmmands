@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Qmmands
 {
-    internal sealed class CommandMap
+    internal sealed class CommandMap : ICommandMap
     {
         private readonly CommandMapNode _rootNode;
 
