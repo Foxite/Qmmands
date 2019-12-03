@@ -110,6 +110,12 @@ namespace Qmmands
         /// </summary>
         public IEnumerable<string> NullableNouns { get; set; }
 
+		/// <summary>
+		///		The CommandMap to use.
+		///		If <see langword="null"/>, then a default implementation will be used.
+		/// </summary>
+		public ICommandMap CommandMap { get; set; }
+
         /// <summary>
         ///     Initialises a new <see cref="CommandServiceConfiguration"/>.
         /// </summary>

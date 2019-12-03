@@ -94,7 +94,7 @@ namespace Qmmands
         private readonly ConcurrentDictionary<Type, Dictionary<Type, (bool ReplacingPrimitive, ITypeParser Instance)>> _typeParsers;
         private readonly ConcurrentDictionary<Type, IPrimitiveTypeParser> _primitiveTypeParsers;
         private readonly HashSet<Module> _topLevelModules;
-        private readonly CommandMap _map;
+        private readonly ICommandMap _map;
         private readonly ConcurrentDictionary<Type, IArgumentParser> _argumentParsers;
         private static readonly Type _stringType = typeof(string);
         private readonly object _moduleLock = new object();
@@ -128,7 +128,7 @@ namespace Qmmands
 
             _topLevelModules = new HashSet<Module>();
             TopLevelModules = new ReadOnlySet<Module>(_topLevelModules);
-            _map = new CommandMap(this);
+            _map = configuration.CommandMap ?? new CommandMap(this);
             _argumentParsers = new ConcurrentDictionary<Type, IArgumentParser>(Environment.ProcessorCount, 1);
             SetDefaultArgumentParser(configuration.DefaultArgumentParser ?? Qmmands.DefaultArgumentParser.Instance);
             _typeParsers = new ConcurrentDictionary<Type, Dictionary<Type, (bool, ITypeParser)>>();
@@ -228,8 +228,8 @@ namespace Qmmands
                 if (matches.Count == 0)
                     return matches;
 
-                // TODO nuke this if custom maps are a thing
-                list = matches as List<CommandMatch>;
+				// Copy the list so we can sort it
+                list = new List<CommandMatch>(matches);
             }
 
             list.Sort(Utilities.CommandOverloadComparer.Instance);
