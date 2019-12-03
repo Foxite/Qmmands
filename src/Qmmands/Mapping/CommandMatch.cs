@@ -28,7 +28,10 @@ namespace Qmmands
         /// </summary>
         public string RawArguments { get; }
 
-        internal CommandMatch(Command command, string alias, IReadOnlyList<string> path, string rawArguments)
+		/// <summary>
+		/// Creates a new instance of CommandMatch.
+		/// </summary>
+        public CommandMatch(Command command, string alias, IReadOnlyList<string> path, string rawArguments)
         {
             Command = command;
             Alias = alias;
