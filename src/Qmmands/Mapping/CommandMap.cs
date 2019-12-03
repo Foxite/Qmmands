@@ -69,6 +69,14 @@ namespace Qmmands
                 }
                 else
                 {
+					// TODO Is ArgumentException right here?
+					// See also this block in CommandsLoop
+					if (alias.IndexOf(' ') != -1)
+						throw new ArgumentException("Command's aliases must not contain whitespace. Whitespace was found in an alias of a module named " + module.Name);
+
+					if (alias.IndexOf(module.Service.Separator, module.Service.StringComparison) != -1)
+						throw new ArgumentException("Command's aliases must not contain the separator. The separator was found in an alias of a module named " + module.Name);
+
                     path.Add(alias);
 
                     action(this, path, module);
@@ -103,6 +111,12 @@ namespace Qmmands
                     }
                     else
                     {
+						if (alias.IndexOf(' ') != -1)
+							throw new ArgumentException("Command's aliases must not contain whitespace.");
+
+						if (alias.IndexOf(module.Service.Separator, module.Service.StringComparison) != -1)
+							throw new ArgumentException("Command's aliases must not contain the separator.");
+
                         path.Add(alias);
                         action(this, path, command);
                         path.RemoveAt(path.Count - 1);
