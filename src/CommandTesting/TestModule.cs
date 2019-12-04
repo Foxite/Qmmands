@@ -2,7 +2,7 @@
 using Qmmands;
 
 namespace CommandTesting {
-	[Group("aaa bbb")]
+	//[Group("bbb")]
 	public class TestModule : ModuleBase<ConsoleCommandContext> {
 		[Command("test thing")]
 		public void TestCommand(string thing) {

@@ -26,6 +26,10 @@ namespace CommandTesting {
 				}
 				bool match = false;
 				while (checkModules.TryPop(out Module check)) {
+					if (check.Aliases.Count == 0) {
+						match = true;
+						continue;
+					}
 					foreach (string alias in check.Aliases) {
 						if (remainingInput.StartsWith(alias)) {
 							remainingInput = remainingInput.Substring(alias.Length);
@@ -46,14 +50,18 @@ namespace CommandTesting {
 					}
 				}
 				if (match) {
-					foreach (string alias in command.Aliases) {
-						if (remainingInput.StartsWith(alias)) {
-							remainingInput = remainingInput.Substring(alias.Length);
-							if (remainingInput.Length == 0 || remainingInput.StartsWith(m_Separator)) {
-								matches.Add(new CommandMatch(command, alias, path.AsReadOnly(), remainingInput.TrimStart(m_Separator)));
-								break;
+					if (command.Aliases.Count > 0) {
+						foreach (string alias in command.Aliases) {
+							if (remainingInput.StartsWith(alias)) {
+								remainingInput = remainingInput.Substring(alias.Length);
+								if (remainingInput.Length == 0 || remainingInput.StartsWith(m_Separator)) {
+									matches.Add(new CommandMatch(command, alias, path.AsReadOnly(), remainingInput.TrimStart(m_Separator)));
+									break;
+								}
 							}
 						}
+					} else {
+						matches.Add(new CommandMatch(command, "", path.AsReadOnly(), remainingInput.TrimStart(m_Separator)));
 					}
 				}
 			}
