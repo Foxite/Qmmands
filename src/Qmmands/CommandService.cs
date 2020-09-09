@@ -1267,7 +1267,7 @@ namespace Qmmands
             if (primitiveParser.TryParse(parameter, value, out var result))
                 return (null, result);
 
-            return (new TypeParseFailedResult(parameter, value, ), default);
+            return (new TypeParseFailedResult(parameter, value, new PrimitiveTypeParserResult("Could not parse primitive " + parameter.Type.Name)), default);
         }
 
         private Task InvokeCommandExecutedAsync(CommandResult result, CommandContext context)
