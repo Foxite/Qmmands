@@ -1243,7 +1243,7 @@ namespace Qmmands
 
                 var typeParserResult = await customParser.ParseAsync(parameter, value, context).ConfigureAwait(false);
                 if (!typeParserResult.IsSuccessful)
-                    return (new TypeParseFailedResult(parameter, value, typeParserResult.Reason), default);
+                    return (new TypeParseFailedResult(parameter, value, typeParserResult), default);
 
                 return (null, typeParserResult.HasValue ? typeParserResult.Value : null);
             }
@@ -1256,7 +1256,7 @@ namespace Qmmands
             {
                 var typeParserResult = await parser.ParseAsync(parameter, value, context).ConfigureAwait(false);
                 if (!typeParserResult.IsSuccessful)
-                    return (new TypeParseFailedResult(parameter, value, typeParserResult.Reason), default);
+                    return (new TypeParseFailedResult(parameter, value, typeParserResult), default);
 
                 return (null, typeParserResult.HasValue ? typeParserResult.Value : null);
             }
@@ -1267,7 +1267,7 @@ namespace Qmmands
             if (primitiveParser.TryParse(parameter, value, out var result))
                 return (null, result);
 
-            return (new TypeParseFailedResult(parameter, value), default);
+            return (new TypeParseFailedResult(parameter, value, ), default);
         }
 
         private Task InvokeCommandExecutedAsync(CommandResult result, CommandContext context)
