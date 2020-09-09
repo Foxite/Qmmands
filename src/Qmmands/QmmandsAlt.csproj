@@ -11,8 +11,8 @@
     <RepositoryUrl>https://github.com/Foxite/Qmmands/tree/feature/custom-maps</RepositoryUrl>
     <PackageProjectUrl>https://github.com/Foxite/Qmmands/tree/feature/custom-maps</PackageProjectUrl>
     <RepositoryType>Git</RepositoryType>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
+    <AssemblyVersion>3.0.1.0</AssemblyVersion>
+    <FileVersion>3.0.1.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>3.0.1</Version>
   </PropertyGroup>
