@@ -6,11 +6,13 @@
 		/// <summary>
 		///     Gets the error reason. <see langword="null"/> if <see cref="IResult.IsSuccessful"/> is <see langword="true"/>.
 		/// </summary>
-		bool HasValue { get; }
+		public bool HasValue { get; }
 		
 		/// <summary>
 		///     Gets whether this result has a parsed value or not.
 		/// </summary>
-		string Reason { get; }
+		public string Reason { get; }
+
+		internal object Value { get; }
 	}
 }

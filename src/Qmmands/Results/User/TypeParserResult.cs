@@ -27,6 +27,8 @@ namespace Qmmands
 		/// </summary>
 		public T Value { get; }
 
+		object ITypeParserResult.Value => throw new System.NotImplementedException();
+
 		/// <summary>
 		///     Initialises a new <see cref="TypeParserResult{T}"/> with the specified parsed value.
 		/// </summary>
