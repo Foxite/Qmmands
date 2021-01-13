@@ -18,14 +18,9 @@ namespace Qmmands
         /// <returns> A <see cref="TypeParserResult{T}"/>. </returns>
         public abstract ValueTask<TypeParserResult<T>> ParseAsync(Parameter parameter, string value, CommandContext context);
 
-        async ValueTask<TypeParserResult<object>> ITypeParser.ParseAsync(Parameter parameter, string value, CommandContext context)
+        async ValueTask<ITypeParserResult> ITypeParser.ParseAsync(Parameter parameter, string value, CommandContext context)
         {
-            var result = await ParseAsync(parameter, value, context).ConfigureAwait(false);
-            return result.IsSuccessful
-                ? result.HasValue
-                    ? new TypeParserResult<object>(result.Value)
-                    : new TypeParserResult<object>(false)
-                : new TypeParserResult<object>(result.Reason);
+			return await ParseAsync(parameter, value, context).ConfigureAwait(false);
         }
     }
 }

@@ -3,36 +3,52 @@
 namespace Qmmands
 {
     /// <summary>
+    /// Non-generic interface for <see cref="TypeParserResult{T}"/>
+    /// </summary>
+	public interface ITypeParserResult : IResult {
+		/// <summary>
+		///     Gets the error reason. <see langword="null"/> if <see cref="IResult.IsSuccessful"/> is <see langword="true"/>.
+		/// </summary>
+		public string Reason { get; }
+
+		/// <summary>
+		///     Gets whether this result has a parsed value or not.
+		/// </summary>
+		public bool HasValue { get; }
+        
+		/// <summary>
+		///     Gets the parsed value.
+		/// </summary>
+        internal object Value { get; }
+	}
+
+    /// <summary>
     ///     Represents a <see cref="TypeParser{T}"/> result.
     /// </summary>
     /// <typeparam name="T"> The type handled by the type parser. </typeparam>
-    public class TypeParserResult<T> : IResult
+    public class TypeParserResult<T> : ITypeParserResult
     {
-        /// <summary>
-        ///     Gets whether the result was successful or not.
-        /// </summary>
-        public bool IsSuccessful => Reason == null;
+		/// <summary>
+		///     Gets the parsed value.
+		/// </summary>
+		public T Value { get; set; }
 
-        /// <summary>
-        ///     Gets the error reason. <see langword="null"/> if <see cref="IsSuccessful"/> is <see langword="true"/>.
-        /// </summary>
-        public string Reason { get; }
+        /// <inheritdoc/>
+		public string Reason { get; }
 
-        /// <summary>
-        ///     Gets whether this result has a parsed value or not.
-        /// </summary>
-        public bool HasValue { get; }
+        /// <inheritdoc/>
+		public bool HasValue { get; }
 
-        /// <summary>
-        ///     Gets the parsed value.
-        /// </summary>
-        public T Value { get; }
+        /// <inheritdoc/>
+		public bool IsSuccessful { get; }
 
-        /// <summary>
-        ///     Initialises a new <see cref="TypeParserResult{T}"/> with the specified parsed value.
-        /// </summary>
-        /// <param name="value"> The parsed value. </param>
-        public TypeParserResult(T value)
+        object ITypeParserResult.Value => Value;
+
+		/// <summary>
+		///     Initialises a new <see cref="TypeParserResult{T}"/> with the specified parsed value.
+		/// </summary>
+		/// <param name="value"> The parsed value. </param>
+		public TypeParserResult(T value)
         {
             HasValue = true;
             Value = value;
