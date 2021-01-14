@@ -8,7 +8,7 @@ namespace Qmmands {
 		public bool HasValue => false;
 		public bool IsSuccessful => false;
 
-		object ITypeParserResult.Value => throw new NotImplementedException();
+		object ITypeParserResult.Value => null;
 
 		public PrimitiveTypeParserResult(string reason) {
 			Reason = reason;
